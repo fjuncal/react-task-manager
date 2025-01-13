@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
+import { useTaskContext } from "../context/TaskContextType";
 
-interface TaskFormProps {
-  onAddTask: (text: string) => void;
-}
-
-export default function TaskForm({ onAddTask }: TaskFormProps) {
+export default function TaskForm() {
   const [taskText, setTaskText] = useState<string>("");
+  const { addTask } = useTaskContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (taskText.trim() === "") return; //Não adiciona task vazia
 
-    onAddTask(taskText);
+    addTask(taskText);
     setTaskText("");
   };
 

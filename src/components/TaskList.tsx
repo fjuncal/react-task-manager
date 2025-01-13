@@ -1,21 +1,12 @@
 import { styled } from "styled-components";
-import { Task } from "../types/Task";
+import { useTaskContext } from "../context/TaskContextType";
 
-interface TaskListProps {
-  task: Task[];
-  onToggleTask: (id: number) => void;
-  onDeleteTask: (id: number) => void;
-}
-
-export default function TaskList({
-  task,
-  onToggleTask,
-  onDeleteTask,
-}: TaskListProps) {
+export default function TaskList() {
+  const { tasks, toggleTask, deleteTask } = useTaskContext();
   return (
     <>
       <List>
-        {task.map((task) => (
+        {tasks.map((task) => (
           <ListItem key={task.id}>
             <span
               style={{
@@ -24,10 +15,10 @@ export default function TaskList({
             >
               {task.text}
             </span>
-            <button onClick={() => onToggleTask(task.id)}>
+            <button onClick={() => toggleTask(task.id)}>
               {task.completed ? "Desmarcar" : "Marcar"}
             </button>
-            <button onClick={() => onDeleteTask(task.id)}>Excluir</button>
+            <button onClick={() => deleteTask(task.id)}>Excluir</button>
           </ListItem>
         ))}
       </List>
