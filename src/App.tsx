@@ -16,13 +16,21 @@ function App() {
     setTasks([...tasks, newTask]);
   };
 
+  const toggleTask = (id: number) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
   return (
     <>
       <GlobalStyles />
       <div>
         <h1>Gerenciador de tarefas</h1>
         <TaskForm onAddTask={addTask} />
-        <TaskList task={tasks} />
+        <TaskList task={tasks} onToggleTask={toggleTask} />
       </div>
     </>
   );
