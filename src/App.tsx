@@ -24,13 +24,21 @@ function App() {
     );
   };
 
+  const deleteTask = (id: number) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  };
+
   return (
     <>
       <GlobalStyles />
       <div>
         <h1>Gerenciador de tarefas</h1>
         <TaskForm onAddTask={addTask} />
-        <TaskList task={tasks} onToggleTask={toggleTask} />
+        <TaskList
+          task={tasks}
+          onToggleTask={toggleTask}
+          onDeleteTask={deleteTask}
+        />
       </div>
     </>
   );

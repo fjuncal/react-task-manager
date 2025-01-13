@@ -4,9 +4,14 @@ import { Task } from "../types/Task";
 interface TaskListProps {
   task: Task[];
   onToggleTask: (id: number) => void;
+  onDeleteTask: (id: number) => void;
 }
 
-export default function TaskList({ task, onToggleTask }: TaskListProps) {
+export default function TaskList({
+  task,
+  onToggleTask,
+  onDeleteTask,
+}: TaskListProps) {
   return (
     <>
       <List>
@@ -22,6 +27,7 @@ export default function TaskList({ task, onToggleTask }: TaskListProps) {
             <button onClick={() => onToggleTask(task.id)}>
               {task.completed ? "Desmarcar" : "Marcar"}
             </button>
+            <button onClick={() => onDeleteTask(task.id)}>Excluir</button>
           </ListItem>
         ))}
       </List>
@@ -51,14 +57,26 @@ const ListItem = styled.li`
 
   button {
     margin-left: 8px;
-    background-color: #007bff;
-    color: white;
-    border: none;
     padding: 4px 8px;
+    border: none;
     cursor: pointer;
 
-    &:hover {
-      background-color: #0056b3;
+    &:nth-child(1) {
+      background-color: #007bff;
+      color: white;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    &:nth-child(2) {
+      background-color: #dc3545;
+      color: white;
+
+      &:hover {
+        background-color: #a71d2a;
+      }
     }
   }
 `;
