@@ -1,11 +1,15 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { Task } from "../types/Task";
 
+type FilterType = "all" | "completed" | "active";
+
 interface TaskContextType {
   tasks: Task[];
   addTask: (text: string) => void;
   toggleTask: (id: number) => void;
   deleteTask: (id: number) => void;
+  filter: FilterType;
+  setFilter: (filter: FilterType) => void;
 }
 
 //criando contexto vazio com valores padrão
@@ -17,6 +21,8 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     { id: 1, text: "Estudar React com TypeScript", completed: false },
     { id: 2, text: "Fazer exercícios", completed: true },
   ]);
+
+  const [filter, setFilter] = useState<FilterType>("all");
 
   const addTask = (text: string) => {
     const newTask: Task = {
@@ -40,7 +46,9 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask, toggleTask, deleteTask }}>
+    <TaskContext.Provider
+      value={{ tasks, addTask, toggleTask, deleteTask, filter, setFilter }}
+    >
       {children}
     </TaskContext.Provider>
   );

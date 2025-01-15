@@ -2,11 +2,17 @@ import { styled } from "styled-components";
 import { useTaskContext } from "../context/TaskContextType";
 
 export default function TaskList() {
-  const { tasks, toggleTask, deleteTask } = useTaskContext();
+  const { tasks, toggleTask, deleteTask, filter } = useTaskContext();
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "completed") return task.completed;
+    if (filter === "active") return !task.completed;
+    return true;
+  });
   return (
     <>
       <List>
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <ListItem key={task.id}>
             <span
               style={{
