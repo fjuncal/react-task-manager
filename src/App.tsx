@@ -1,21 +1,28 @@
+import { Route, Routes } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
-import TaskList from "./components/TaskList";
-import TaskForm from "./components/TaskForm";
+import TaskPage from "./pages/TaskPage";
+import AboutPage from "./pages/AboutPage";
+import Navbar from "./components/Navbar";
+import TaskDetailsPage from "./pages/TaskDetailsPage";
 import { TaskProvider } from "./context/TaskContextType";
-import TaskFilter from "./components/TaskFilter";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <TaskProvider>
+      <div>
+        <h1>Gerenciador de Tarefas</h1>
         <div>
-          <h1>Gerenciador de Tarefas</h1>
-          <TaskForm />
-          <TaskFilter />
-          <TaskList />
+          <TaskProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<TaskPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/task/:id" element={<TaskDetailsPage />} />
+            </Routes>
+          </TaskProvider>
         </div>
-      </TaskProvider>
+      </div>
     </>
   );
 }

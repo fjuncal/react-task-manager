@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { useTaskContext } from "../context/TaskContextType";
+import { Link } from "react-router-dom";
 
 export default function TaskList() {
   const { tasks, toggleTask, deleteTask, filter } = useTaskContext();
@@ -19,7 +20,7 @@ export default function TaskList() {
                 textDecoration: task.completed ? "line-through" : "none",
               }}
             >
-              {task.text}
+              <Link to={`/task/${task.id}`}>{task.text}</Link>
             </span>
             <button onClick={() => toggleTask(task.id)}>
               {task.completed ? "Desmarcar" : "Marcar"}
@@ -50,6 +51,16 @@ const ListItem = styled.li`
 
   span {
     flex: 1;
+    cursor: pointer;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   button {
